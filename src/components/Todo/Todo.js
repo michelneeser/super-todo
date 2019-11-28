@@ -1,5 +1,4 @@
 import React from 'react';
-import './Todo.css';
 
 class Todo extends React.Component {
   constructor(props) {
@@ -15,7 +14,9 @@ class Todo extends React.Component {
           <input type="checkbox" checked={this.state.checked} onChange={this.handleTodoCheck} />
           <span>{this.props.todo}</span>
         </label>
-        <a href="#!" className="secondary-content" onClick={this.handleTodoDelete}><i className="material-icons">delete</i></a>
+        <a href="#!" className="secondary-content" onClick={this.handleTodoDelete}>
+          <i className="material-icons">delete</i>
+        </a>
       </li>
     )
   }
