@@ -1,5 +1,5 @@
 import React from 'react';
-import './DeleteTodos.css';
+import styled from 'styled-components';
 
 class DeleteTodo extends React.Component {
   constructor(props) {
@@ -8,13 +8,15 @@ class DeleteTodo extends React.Component {
   }
 
   render() {
+    let btnClass = `btn waves-effect waves-light red ${this.props.hasTodos ? '' : 'disabled'}`;
+
     return (
-      <div className="todo-delete-all">
-        <button className="btn waves-effect waves-light red" type="submit" onClick={this.handleClick}>
+      <StyledWrapper>
+        <button className={btnClass} type="submit" onClick={this.handleClick}>
           <span>delete all</span>
           <i className="material-icons left">delete_sweep</i>
         </button>
-      </div>
+      </StyledWrapper>
     );
   }
 
@@ -22,5 +24,9 @@ class DeleteTodo extends React.Component {
     this.props.deleteTodos();
   }
 }
+
+const StyledWrapper = styled.div`
+  text-align: center;
+`;
 
 export default DeleteTodo;

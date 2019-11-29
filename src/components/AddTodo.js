@@ -1,5 +1,5 @@
 import React from 'react';
-import './AddTodo.css';
+import styled from 'styled-components';
 
 class AddTodo extends React.Component {
   constructor(props) {
@@ -14,12 +14,12 @@ class AddTodo extends React.Component {
           <div className="col s9">
             <input className="todo-input" type="text" placeholder="add todo" />
           </div>
-          <div className="col s3 todo-add">
+          <StyledWrapper className="col s3">
             <button className="btn waves-effect waves-light" type="submit" onClick={this.handleAdd}>
               <span>add</span>
               <i className="material-icons right">send</i>
             </button>
-          </div>
+          </StyledWrapper>
         </div>
       </form>
     );
@@ -28,12 +28,14 @@ class AddTodo extends React.Component {
   handleAdd(e) {
     let todo = document.querySelector('.todo-input').value;
     if (todo) {
-      console.log(`adding '${todo}'`);
       this.props.addTodo(todo);
     }
     e.preventDefault();
   }
-
 }
+
+const StyledWrapper = styled.div`
+  text-align: right;
+`;
 
 export default AddTodo;
