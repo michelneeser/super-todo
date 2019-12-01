@@ -24,8 +24,8 @@ class Todo extends React.Component {
     )
   }
 
-  handleCheck() {
-    this.props.checkTodo(this.props.id);
+  handleCheck(e) {
+    this.props.checkTodo(this.props.id, e.target.checked);
   }
 
   handleDelete(e) {

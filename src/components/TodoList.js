@@ -24,11 +24,9 @@ class TodoList extends React.Component {
 
   getTodos() {
     let todos = JSON.parse(localStorage.getItem('todos'));
-
     if (!todos || todos.length === 0) {
       todos = todoData;
     }
-
     return todos.map(todo => Object.assign(todo, { id: uuid() }));
   }
 
@@ -73,7 +71,6 @@ class TodoList extends React.Component {
         checked: todo.checked
       }
     ));
-
     localStorage.setItem('todos', JSON.stringify(todos));
   }
 
@@ -97,11 +94,10 @@ class TodoList extends React.Component {
     return true;
   }
 
-  checkTodo(id) {
-    let todos = this.state.todos.slice();
-    todos.map(todo => {
+  checkTodo(id, check) {
+    let todos = this.state.todos.map(todo => {
       if (todo.id === id) {
-        todo.checked = true;
+        todo.checked = check;
       }
       return todo;
     });
@@ -109,14 +105,12 @@ class TodoList extends React.Component {
   }
 
   deleteTodo(id) {
-    let todos = this.state.todos.slice();
-    todos = todos.filter(todo => todo.id !== id);
+    let todos = this.state.todos.filter(todo => todo.id !== id);
     this.setState({ todos: todos });
   }
 
   cleanUpTodos() {
-    let todos = this.state.todos.slice();
-    todos = todos.filter(todo => !todo.checked);
+    let todos = this.state.todos.filter(todo => !todo.checked);
     this.setState({ todos: todos });
   }
 
