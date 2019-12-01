@@ -2,8 +2,9 @@ import React from 'react';
 import Todo from './Todo';
 import AddTodo from './AddTodo';
 import TodoCounter from './TodoCounter';
-import DeleteTodos from './CleanUpTodos';
+import CleanUpTodos from './CleanUpTodos';
 import todoData from '../Data';
+import uuid from 'uuid/v4';
 
 class TodoList extends React.Component {
   constructor(props) {
@@ -15,10 +16,20 @@ class TodoList extends React.Component {
     this.cleanUpTodos = this.cleanUpTodos.bind(this);
     this.deleteTodos = this.deleteTodos.bind(this);
 
+    let todos = this.getTodos();
     this.state = {
-      nextId: todoData.length + 1,
-      todos: todoData.map(todo => Object.assign(todo, { checked: false }))
+      todos: todos
     };
+  }
+
+  getTodos() {
+    let todos = JSON.parse(localStorage.getItem('todos'));
+
+    if (!todos || todos.length === 0) {
+      todos = todoData;
+    }
+
+    return todos.map(todo => Object.assign(todo, { id: uuid() }));
   }
 
   render() {
@@ -36,32 +47,54 @@ class TodoList extends React.Component {
     return (
       <React.Fragment>
         <AddTodo addTodo={this.addTodo} />
-        <TodoCounter todos={this.state.todos} />
-        <ul className="todo-list collection">
-          {todoElements}
-        </ul>
-        <DeleteTodos
+        <TodoCounter
+          todos={this.state.todos.length}
+          checkedTodos={this.state.todos.filter(todo => todo.checked).length}
+        />
+        <React.Fragment>
+          <ul className="todo-list collection">
+            {todoElements}
+          </ul>
+        </React.Fragment>
+        <CleanUpTodos
           hasTodos={this.state.todos.length > 0}
           hasCheckedTodos={this.state.todos.filter(todo => todo.checked).length > 0}
           cleanUpTodos={this.cleanUpTodos}
           deleteTodos={this.deleteTodos}
         />
-      </React.Fragment >
+      </React.Fragment>
     );
   }
 
+  componentDidUpdate() {
+    let todos = this.state.todos.map(todo => (
+      {
+        text: todo.text,
+        checked: todo.checked
+      }
+    ));
+
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }
+
   addTodo(todoText) {
+    // check for duplicate
+    if (this.state.todos.find(todo => todo.text === todoText) !== undefined) {
+      return false;
+    }
+
     let todos = this.state.todos.slice();
     todos.push({
-      id: this.state.nextId,
+      id: uuid(),
       text: todoText,
       checked: false
     });
 
     this.setState(state => ({
-      nextId: state.nextId + 1,
       todos: todos
     }));
+
+    return true;
   }
 
   checkTodo(id) {

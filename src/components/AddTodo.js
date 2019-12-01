@@ -26,10 +26,15 @@ class AddTodo extends React.Component {
   }
 
   handleAdd(e) {
-    let todo = document.querySelector('.todo-input').value;
+    let input = document.querySelector('.todo-input');
+    let todo = input.value;
+
     if (todo) {
-      this.props.addTodo(todo);
+      if (this.props.addTodo(todo)) {
+        input.value = '';
+      }
     }
+
     e.preventDefault();
   }
 }

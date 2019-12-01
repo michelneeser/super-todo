@@ -4,15 +4,12 @@ import styled from 'styled-components';
 class TodoCounter extends React.Component {
 
   render() {
-    let todos = this.props.todos;
-    let allTodosCount = todos.length;
-    let checkedTodosCount = todos.filter(todo => todo.checked).length;
-    let allChecked = (allTodosCount === checkedTodosCount);
+    let { todos, checkedTodos } = this.props;
+    let allChecked = (todos !== 0 && todos === checkedTodos);
 
     return (
       <StyledWrapper>
-        <span>{checkedTodosCount} / {allTodosCount} done{allChecked ? ', yeah!' : ''}</span>
-
+        <span>{checkedTodos} / {todos} done{allChecked ? ', yeah!' : ''}</span>
       </StyledWrapper>
     );
   }

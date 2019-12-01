@@ -1,8 +1,20 @@
 const todoData = [
-  { id: 1, text: "bring out trash" },
-  { id: 2, text: "go home" },
-  { id: 3, text: "go to work" },
-  { id: 4, text: "be nice" },
+  {
+    text: "bring out trash",
+    checked: false
+  },
+  {
+    text: "go home",
+    checked: false
+  },
+  {
+    text: "go to work",
+    checked: false
+  },
+  {
+    text: "be nice",
+    checked: false
+  }
 ];
 
 export default todoData;

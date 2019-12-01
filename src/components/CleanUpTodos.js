@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-class DeleteTodo extends React.Component {
+class CleanUpTodos extends React.Component {
   constructor(props) {
     super(props);
     this.handleCleanUp = this.handleCleanUp.bind(this);
@@ -44,4 +44,4 @@ const StyledButton = styled.button`
   margin-right: 1em;
 `;
 
-export default DeleteTodo;
+export default CleanUpTodos;
