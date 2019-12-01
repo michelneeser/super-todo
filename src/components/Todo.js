@@ -3,17 +3,19 @@ import React from 'react';
 class Todo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { checked: false };
+
     this.handleCheck = this.handleCheck.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
 
   render() {
+    const { text, checked } = this.props;
+
     return (
       <li className="collection-item">
         <label>
-          <input type="checkbox" checked={this.state.checked} onChange={this.handleCheck} />
-          <span>{this.props.todo}</span>
+          <input type="checkbox" checked={checked} onChange={this.handleCheck} />
+          <span>{text}</span>
         </label>
         <a href="#!" className="secondary-content" onClick={this.handleDelete}>
           <i className="material-icons">delete</i>
@@ -23,12 +25,12 @@ class Todo extends React.Component {
   }
 
   handleCheck() {
-    this.setState(state => ({ checked: !state.checked }));
+    this.props.checkTodo(this.props.id);
   }
 
   handleDelete(e) {
-    e.preventDefault();
     this.props.deleteTodo(this.props.id);
+    e.preventDefault();
   }
 }
 
